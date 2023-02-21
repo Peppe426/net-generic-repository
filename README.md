@@ -1,1 +1,3 @@
 # net-generic-repository
+
+C# generics is a feature of the C# programming language that allows you to create classes, interfaces, methods, and delegates that can work with any data type. This allows for greater code reusability and type safety by eliminating the need for redundant code that performs the same operations on different data types. With generics, you can define a class or method once, and use it with multiple data types without having to rewrite it for each type. Generics in C# are parameterized types, meaning that you can specify the type of data that the generic class or method should work with at runtime. This makes C# generics a powerful tool for creating flexible and efficient code that can handle a variety of data types.
