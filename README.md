@@ -20,7 +20,57 @@ Update / Update Supported
 Delete / Delete Supported
 
 
+## Concurrency conflicts
 
-## Resolving concurrency conflicts
+This repository supports application-managed optimistic concurrency using Entity frameworks [ConcurrencyCheck](https://learn.microsoft.com/en-us/ef/core/saving/concurrency?tabs=data-annotations#application-managed-concurrency-tokens)
+using data annotations:
 
-<https://learn.microsoft.com/en-us/ef/core/saving/concurrency?tabs=data-annotations#resolving-concurrency-conflicts>
+```
+public class BaseEntity<Identifier>
+{
+	[ConcurrencyCheck]
+	public Guid Version { get; set; }
+}
+```
+### Concurrency conflicts in action:
+
+1. The version is set when an entity is initialized.
+2. Whenever the entity is updated or deleted, the version is also updated.
+3. Concurrency conflicts arise when the version of the input does not match the version in the database.
+4. If this condition is not met, a DbUpdateConcurrencyException is thrown.
+```
+if (input.Rowversion != output.Rowversion)
+{
+	throw new DbUpdateConcurrencyException(output.Rowversion.ToString());
+}
+```
+
+The error is caught and thrown as a domain error, which includes the Rowversion for easier handling of client-side concurrency:
+
+```
+public class RepositoryUpdateException : DbUpdateConcurrencyException
+{
+    public RepositoryUpdateException(string message, string rowVersion, Exception? innerException) : base(message, innerException)
+    {
+        Rowversion = rowVersion;
+    }
+
+    public string Rowversion { get; set; } = string.Empty;
+}
+```
+
+### More about Concurrency conflicts
+
+Concurrency conflicts occur when multiple users or processes try to access the same resource or data simultaneously. These conflicts can cause data inconsistency and errors in an application. To resolve concurrency conflicts, you can use various techniques such as:
+
+* Locking: Locking is a technique used to ensure that only one user or process can access a resource or data at a time. This technique can prevent concurrency conflicts by blocking other users or processes from accessing the same resource until the first user or process has finished its task.
+
+* Versioning: Versioning is a technique that involves maintaining multiple versions of the same data. When a user or process updates the data, a new version is created, and the old version is retained. This technique can prevent concurrency conflicts by allowing multiple users or processes to access and update different versions of the same data simultaneously.
+
+* Optimistic concurrency control: Optimistic concurrency control is a technique that allows multiple users or processes to access and update the same data simultaneously. However, before committing the changes, the system checks whether any other user or process has updated the data in the meantime. If there is a conflict, the system notifies the user or process to resolve the conflict.
+
+* Pessimistic concurrency control: Pessimistic concurrency control is a technique that locks the resource or data as soon as a user or process accesses it. This technique can prevent concurrency conflicts, but it can also reduce system performance by creating a bottleneck.
+
+* Conflict resolution algorithms: Conflict resolution algorithms are used to automatically resolve conflicts between multiple users or processes. These algorithms can compare the conflicting changes and determine the most appropriate solution to resolve the conflict.
+
+Read more at: [Resolving concurrency conflicts](https://learn.microsoft.com/en-us/ef/core/saving/concurrency?tabs=data-annotations#resolving-concurrency-conflicts)
