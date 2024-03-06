@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -9,7 +9,7 @@
     <Authors>Peter Liljeholm</Authors>
     <Product>Fluent.Repository</Product>
     <Description>using a generic approach, which means it can work with any type of entity. It abstracts away the specific details of data access operations, such as CRUD (Create, Read, Update, Delete), allowing for cleaner and more modular code.</Description>
-    <RepositoryUrl>https://github.com/barbarossa426/net-generic-repository/tree/main</RepositoryUrl>
+    <RepositoryUrl>https://github.com/barbarossa426/net-generic-repository</RepositoryUrl>
     <PackageTags>Generic Repository; data access; CRUD operations; abstraction; modular code; best practices</PackageTags>
     <AssemblyVersion>1</AssemblyVersion>
     <FileVersion>0</FileVersion>
