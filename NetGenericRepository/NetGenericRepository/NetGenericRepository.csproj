@@ -8,7 +8,7 @@
     <Title>Generic Repository</Title>
     <Authors>Peter Liljeholm</Authors>
     <Product>Fluent.Repository</Product>
-    <Description>Utilizing a generic methodology in conjunction with Entity Framework enables compatibility with various entity types. This abstraction conceals the intricate specifics of data access tasks, like CRUD operations, fostering cleaner and modular code.</Description>
+    <Description>Fluent Repository simplifies data access by using a generic approach with Entity Framework. It allows you to work with different types of data entities without worrying about the specific details of how to interact with the database.</Description>
     <RepositoryUrl>https://github.com/barbarossa426/net-generic-repository</RepositoryUrl>
     <PackageTags>Generic Repository; Entity Framework; data access; CRUD operations; abstraction; modular code; best practices</PackageTags>
     <AssemblyVersion>1</AssemblyVersion>
